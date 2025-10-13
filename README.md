@@ -41,23 +41,23 @@ CHATBOT_Project/
 │
 ├── app.py # Main Flask Application File
 
-├── processor.Py # CHATBOT Logic & Model Loading
+├── processor.py # CHATBOT Logic & Model Loading
 
-├── CHATBOT_Model.h5 # Pretrained Tensorflow Model
+├── chatbot_model.h5 # Pretrained Tensorflow Model
 
-├── Requirements.txt # List Of Required Python Packages
+├── requirements.txt # List Of Required Python Packages
 
 ├── Procfile # Render Deployment Instruction
 
-├── .Gitignore # Files And Folders To Ignore In Git
+├── .gitignore # Files And Folders To Ignore In Git
 
 │
-├── Templates/
+├── templates/
 
-│ └── Index.Html # Frontend HTML Interface For CHATBOT
+│ └── index.html # Frontend HTML Interface For CHATBOT
 
 │
-└── Pycache/ # Auto Generated Cache Files (Ignored)
+└── pycache/ # Auto Generated Cache Files (Ignored)
 
 
 
