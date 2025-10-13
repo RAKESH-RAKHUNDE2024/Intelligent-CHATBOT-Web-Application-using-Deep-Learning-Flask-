@@ -1,0 +1,6 @@
+nltk==3.8.1
+numpy==1.26.4
+tensorflow==2.16.1  # Updated to Python 3.12 compatible version
+flask==3.0.0
+gunicorn==20.1.0
+setuptools>=69.0.0
