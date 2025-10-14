@@ -1,3 +1,62 @@
+# processor.py (snippet)
+import os
+import logging
+import traceback
+import json
+import nltk
+import numpy as np
+
+# If using TF
+from tensorflow.keras.models import load_model
+
+HERE = os.path.dirname(__file__)
+MODEL_PATH = os.path.join(HERE, "chatbot_model.h5")
+
+# minimal logging
+logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler()])
+
+# Ensure NLTK data is present (downloads silently if missing).
+# List only the resources you actually need (e.g., punkt, wordnet)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', quiet=True)
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet', quiet=True)
+# add any other downloads you need: 'omw-1.4', 'stopwords', etc.
+
+# Load model at import time and log success/failure
+model = None
+try:
+    logging.info(f"Loading model from: {MODEL_PATH}")
+    model = load_model(MODEL_PATH)
+    logging.info("Model loaded successfully.")
+except Exception as e:
+    logging.error("Failed to load model:\n" + traceback.format_exc())
+    # Optionally re-raise to stop the app startup (so you notice immediately)
+    # raise
+
+def chatbot_response(question: str) -> str:
+    try:
+        if model is None:
+            raise RuntimeError("Model not loaded")
+
+        # --- your preprocessing/inference code here ---
+        # Example placeholder:
+        processed = question  # replace with actual preprocessing
+        # prediction = model.predict(...)  # your real code
+        # inference example:
+        # result = decode_prediction(prediction)
+        result = "This is a placeholder. Implement inference logic."
+
+        return result
+
+    except Exception as e:
+        logging.error("Error in chatbot_response:\n" + traceback.format_exc())
+        # Return a friendly message (and log the full stack trace)
+        return "Sorry, something went wrong!"
 import nltk
 import tensorflow as tf
 from nltk.stem import WordNetLemmatizer
@@ -58,4 +117,5 @@ def getResponse(ints, intents_json):
 def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
+
     return res
