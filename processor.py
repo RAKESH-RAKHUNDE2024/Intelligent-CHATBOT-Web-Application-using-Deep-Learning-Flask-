@@ -20,6 +20,10 @@ BASE_DIR = os.path.dirname(__file__)
 MODEL_PATH = os.path.join(BASE_DIR, 'chatbot_model.h5')
 model = None
 
+logging.info(f"Checking model path: {MODEL_PATH}")
+logging.info(f"File exists? {os.path.exists(MODEL_PATH)}")
+
+
 try:
     if os.path.exists(MODEL_PATH):
         logging.info(f"Model found at: {MODEL_PATH}")
@@ -49,3 +53,4 @@ def chatbot_response(user_input):
     except Exception as e:
         logging.error(f"Error in chatbot_response:\n{traceback.format_exc()}")
         return "Sorry, something went wrong!"
+
