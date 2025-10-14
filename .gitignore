@@ -4,8 +4,8 @@ chatbot_env/
 
 # Python cache files
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
+.venv/
 
 # Model and data files
 chatbot_model.h5
@@ -26,4 +26,5 @@ job_intents.json
 
 # macOS/Windows specific
 .DS_Store
+
 Thumbs.db
