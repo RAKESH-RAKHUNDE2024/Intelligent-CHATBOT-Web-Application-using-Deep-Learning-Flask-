@@ -66,16 +66,20 @@ Chatbot: “Hi There! How Can I Help You Today?”
 User: “Tell Me About Your Features.”
 
 Chatbot: “I’m Designed To Assist You With Basic Queries And Automate Responses Using Deep Learning Models.”
-________________________________________
+____________________________________________________________________________________________________________________________________________
 
 ### 🏁 Conclusion
 This Project Demonstrates How Deep Learning Models Can Be Integrated With Flask To Create Scalable, Production Ready Chat Applications.
 It Also Highlights The Process Of Deploying AI Models On The Web, Making Machine Learning Solutions More Accessible To End Users.
-________________________________________
+____________________________________________________________________________________________________________________________________________
 
 ### 👨💻 Author
+
 Developed By: Rakesh N. Rakhunde
+
 Role: Data Engineer / Data Science Enthusiast
+
 Tech Stack: Python | SQL | Power BI | Flask | Machine Learning | Deep Learning
+
 
 
