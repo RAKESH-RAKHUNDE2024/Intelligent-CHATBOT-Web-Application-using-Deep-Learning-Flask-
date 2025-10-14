@@ -1,30 +1,45 @@
+# app.py (snippet)
+import os
+import logging
+import traceback
 from flask import Flask, render_template, jsonify, request
+
 import processor
-import webbrowser
-import threading
-import time
 
 app = Flask(__name__)
 
-@app.route('/', methods=["GET", "POST"])
+# Logging to file and stdout
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(message)s',
+                    handlers=[
+                        logging.FileHandler("app.log"),
+                        logging.StreamHandler()
+                    ])
+
+@app.route('/')
 def index():
-    return render_template('index.html', **locals())
+    return render_template('index.html')
 
-@app.route('/chatbot', methods=["GET", "POST"])
+@app.route('/chatbot', methods=['POST'])
 def chatbotResponse():
-    if request.method == 'POST':
-        the_question = request.form['question']
-        response = processor.chatbot_response(the_question)
+    try:
+        # Accept either form or JSON
+        user_input = request.form.get('question') or (request.json and request.json.get('question')) or ''
+        logging.info(f"Incoming question: {user_input!r}")
+
+        if not user_input:
+            return jsonify({"response": "Please enter a question"}), 400
+
+        response = processor.chatbot_response(user_input)
+        logging.info(f"Response: {response!r}")
         return jsonify({"response": response})
-    else:
-        return jsonify({"response": ""})
 
-def open_browser():
-    """Function to open browser after server starts"""
-    time.sleep(1)  # Wait for server to start
-    webbrowser.open('http://localhost:5000')
+    except Exception as e:
+        tb = traceback.format_exc()
+        logging.error("Error in /chatbot endpoint:\n" + tb)
+        # Return a helpful but short error message to client; full trace is in logs.
+        return jsonify({"response": "Sorry, something went wrong!", "error": str(e)}), 500
 
-if __name__ == '__main__':
-    # Start browser in a separate thread to avoid blocking Flask
-    threading.Thread(target=open_browser).start()
-    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
