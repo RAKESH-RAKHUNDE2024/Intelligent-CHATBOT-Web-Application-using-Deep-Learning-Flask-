@@ -37,6 +37,10 @@ def chatbot():
         logging.error(f"Error in chatbot route:\n{tb}")
         return jsonify({"response": "Sorry, something went wrong!"}), 500
 
+# Debug route to show available files in the current directory
+@app.route('/debug/files')
+def debug_files():
+    return jsonify({'files': os.listdir('.')})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
